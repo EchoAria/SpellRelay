@@ -1,4 +1,4 @@
-# Spell Relay · 法术接力
+# Spell Relay · 法术接力/法术连击
 
 A client-side spell sequence addon for **Iron's Spells 'n Spellbooks**. Configure the order using physical spellbook slots, then press one key to cast each spell in turn. The next spell waits for the server's native cast-completion acknowledgement.
 
