@@ -11,7 +11,7 @@ This is an unofficial addon. Spell Relay is installed on the client; the server 
 | 1.20.1 | Forge 47.4.13 | 1.20.1-3.15.4 | [Forge source and build instructions](forge-1.20.1/) |
 | 1.21.1 | NeoForge 21.1.250 | 1.21.1-3.16.3 | [NeoForge source and build instructions](neoforge-1.21.1/) |
 
-Download the matching JAR from **[Releases](../../releases)** and put it in your client's `mods` folder. Install the original mod and its required dependencies separately. Use only the build matching your Minecraft version and loader.
+Download the matching JAR from **[Releases](https://github.com/EchoAria/SpellRelay/releases)** and put it in your client's `mods` folder. Install the original mod and its required dependencies separately. Use only the build matching your Minecraft version and loader.
 
 The initial NeoForge build retains its original file/display name, **Iron Auto Spell**. Both builds use the `ironautospell` mod ID and `config/ironautospell.json` configuration format.
 
