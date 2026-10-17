@@ -1,0 +1,63 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+version = mod_version
+group = mod_group_id
+base { archivesName = 'iron-auto-spell-1.21.1-neoforge' }
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+repositories { mavenCentral() }
+sourceSets {
+    smoke {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath = output + configurations.smokeRuntimeClasspath
+    }
+}
+neoForge {
+    version = project.neo_version
+    addModdingDependenciesTo sourceSets.smoke
+    mods {
+        "${mod_id}" { sourceSet(sourceSets.main) }
+        smoketest { sourceSet(sourceSets.smoke) }
+    }
+    runs {
+        client { client(); loadedMods = [mods.ironautospell] }
+        server { server(); sourceSet = sourceSets.smoke; programArgument '--nogui'; gameDirectory = file('run-server'); loadedMods = [mods.smoketest] }
+        smoke {
+            client()
+            sourceSet = sourceSets.smoke
+            loadedMods = [mods.smoketest]
+            gameDirectory = file('run-smoke')
+            programArguments.addAll '--username', 'AutoSpellTest', '--quickPlayMultiplayer', '127.0.0.1:25579', '--width', '1100', '--height', '740'
+        }
+    }
+}
+configurations.smokeImplementation.extendsFrom(configurations.implementation)
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+tasks.withType(Test).configureEach { useJUnitPlatform() }
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+var generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
+    var props = [mod_id:mod_id, mod_name:mod_name, mod_version:mod_version, mod_license:mod_license]
+    inputs.properties props
+    expand props
+    from 'src/main/templates'
+    into 'build/generated/sources/modMetadata'
+}
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
+var deploySmokeJar = tasks.register('deploySmokeJar', Copy) {
+    from tasks.named('jar')
+    into 'run-smoke/mods'
+}
+tasks.named('runSmoke') { dependsOn deploySmokeJar }
+
+// License texts accompany the binary as well as source distributions.
+tasks.named('jar') {
+    from('LICENSE')
+    from('TEMPLATE_LICENSE.txt')
+    from('THIRD_PARTY_NOTICES.md')
+}

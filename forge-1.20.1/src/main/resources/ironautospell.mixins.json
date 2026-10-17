@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.ironautospell.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "CastStateMixin",
+    "CastFinishedMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

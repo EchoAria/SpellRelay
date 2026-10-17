@@ -1,0 +1,7 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+[[mods]]
+modId="smoketest"
+version="1.0.0"
+displayName="IronAutoSpell integration fixture (not distributed)"

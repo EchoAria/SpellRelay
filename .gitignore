@@ -1,0 +1,12 @@
+**/.gradle/
+**/build/
+**/libs/
+**/run*/
+**/dist/
+**/downloads/
+**/docs/reference/
+**/test-evidence/
+**/.idea/
+*.iml
+*.log
+release-assets/
